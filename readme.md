@@ -1,5 +1,5 @@
 <div align='center'>
-  <h1 align="center">📔 IoChat -  Backend</h1>
+  <h1 align="center">IoChat - Backend</h1>
   <small align="center">Chat in Real Time</small>
 </div>
 

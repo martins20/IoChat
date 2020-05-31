@@ -36,6 +36,8 @@
 <hr>
 <br>
 
+<h2></h2>
+
 <h2>📌 How to run</h2>
 
 <strong>Start / Create your <a href="https://hub.docker.com/_/postgres"> 🐳 Docker Postgres</a> Container:</strong>
@@ -80,7 +82,9 @@ $ yarn or npm i
 
   <h2>📡 Insomnia 📡</h2>
 
-<strong>Import Insomnia settings from root folder.</strong>
+<strong align="center">Import Insomnia settings from root folder.</strong>
+<br>
+<img href="./assets/UserError.json" alt="User Error"/>
 
   <h2>👀 Postbird 👀</h2>
 

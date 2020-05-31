@@ -49,6 +49,14 @@ class RoomController {
             return res.json({ err });
         }
     }
+
+    async show(req, res) {
+        const { roomId } = req.params;
+
+        const room = await Room.findByPk(roomId);
+
+        return res.json(room);
+    }
 }
 
 export default new RoomController();

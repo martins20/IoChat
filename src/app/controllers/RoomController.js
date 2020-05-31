@@ -35,6 +35,8 @@ class RoomController {
             const { senderId, message } = req.body;
             const { roomId } = req.params;
 
+            const generatedId = String(Math.random());
+
             const sender = await User.findByPk(senderId);
 
             const room = await Room.findByPk(roomId);
@@ -43,6 +45,7 @@ class RoomController {
                 messages: [
                     ...room.messages,
                     {
+                        id: generatedId,
                         sender,
                         message,
                     },

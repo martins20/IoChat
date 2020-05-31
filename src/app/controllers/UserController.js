@@ -5,17 +5,9 @@ class UserController {
         try {
             const { name } = req.body;
 
-            const checkUser = await User.findOne({ name });
+            const user = await User.create({ name });
 
-            if (checkUser)
-                return res.status(401).json({ error: 'User already exists.' });
-
-            if (!name)
-                return res.status(401).json({ error: 'Name cannot be empty' });
-
-            await User.create({ name });
-
-            return res.json({ name });
+            return res.json(user);
         } catch (err) {
             return res.json({ err });
         }

@@ -2,8 +2,9 @@ import Sequelize from 'sequelize';
 import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
+import Room from '../app/models/Room';
 
-const models = [User];
+const models = [User, Room];
 
 const connection = new Sequelize(databaseConfig);
 

@@ -14,19 +14,24 @@ class RoomController {
 
     async store(req, res) {
         try {
+            const { io } = req;
             const { participants } = req.body;
 
             const room = await Room.create({ participants });
 
+            const roomId = room.id;
+
+            io.emit('create room', { roomId });
+
             return res.json(room);
         } catch (err) {
-            console.log(err);
             return res.json({ err });
         }
     }
 
     async update(req, res) {
         try {
+            const { io } = req;
             const { senderId, message } = req.body;
             const { roomId } = req.params;
 
@@ -43,6 +48,8 @@ class RoomController {
                     },
                 ],
             });
+
+            io.to(roomId).emit('message', { sender, message });
 
             return res.json(messages);
         } catch (err) {

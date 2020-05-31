@@ -13,19 +13,35 @@ class App {
         this.server = http.Server(this.app);
         this.io = io(this.server);
 
+        this.socket();
+
         this.middlewares();
         this.routes();
     }
 
     socket() {
         this.io.on('connection', (socket) => {
-            console.log(`User ${socket.id} is connected`);
+            console.log(`User ${socket.id} is connected.`);
+
+            socket.on('create room', ({ roomId }) => {
+                socket.join(roomId);
+            });
+
+            socket.on('disconect', () => {
+                console.log(`User ${socket.id} is disconnected.`);
+            });
         });
     }
 
     middlewares() {
         this.app.use(cors());
         this.app.use(express.json());
+
+        this.app.use((req, res, next) => {
+            req.io = this.io;
+
+            next();
+        });
     }
 
     routes() {

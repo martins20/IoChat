@@ -23,7 +23,8 @@ class App {
         this.io.on('connection', (socket) => {
             console.log(`User ${socket.id} is connected.`);
 
-            socket.on('create room', ({ roomId }) => {
+            socket.on('getRoom', ({ roomId }) => {
+                console.log(`user ${socket.id} joined to room ${roomId}`);
                 socket.join(roomId);
             });
 

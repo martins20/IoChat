@@ -19,10 +19,6 @@ class RoomController {
 
             const room = await Room.create({ participants });
 
-            const roomId = room.id;
-
-            io.emit('create room', { roomId });
-
             return res.json(room);
         } catch (err) {
             return res.json({ err });
@@ -41,18 +37,20 @@ class RoomController {
 
             const room = await Room.findByPk(roomId);
 
+            const id = generatedId;
+
             const messages = await room.update({
                 messages: [
                     ...room.messages,
                     {
-                        id: generatedId,
+                        id,
                         sender,
                         message,
                     },
                 ],
             });
 
-            io.to(roomId).emit('message', { sender, message });
+            io.to(roomId).emit('message', messages.messages);
 
             return res.json(messages);
         } catch (err) {
@@ -61,9 +59,12 @@ class RoomController {
     }
 
     async show(req, res) {
+        const { io } = req;
         const { roomId } = req.params;
 
         const room = await Room.findByPk(roomId);
+
+        io.emit('create room', { roomId });
 
         return res.json(room);
     }
